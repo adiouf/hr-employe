@@ -6,3 +6,4 @@ particuliérement la mise en place d'une api rest et d'un web-app
    - home: liste des employés sous forme de tableau
    - formulaire nouveau employé : permet d'ajouter un nouveau employé
    - formulaire modification fiche employé : modifier la fiche d'un employé
+3. Dockerisation: il faut pouvoir lancer l'application avec docker et docker compose (en cours)

@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  front:
+    container_name: front
+    image: front:0.0.1
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - api
+  api:
+    container_name: api
+    image: api:0.0.1
+    build: .
+    ports:
+      - 9000:9000
