@@ -14,7 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-//@EnableMethodSecurity
+@EnableMethodSecurity
 public class SpringSecurityConfig {
 	
 	@Bean
@@ -46,8 +46,8 @@ public class SpringSecurityConfig {
 		// On interndit la cration et la suppression au role user
 		http
         .authorizeHttpRequests()
-        .requestMatchers("/createEmployee/**").hasRole("ADMIN")
-        .requestMatchers("/deleteEmployee/**").hasRole("ADMIN")
+        //.requestMatchers("/createEmployee/**").hasRole("ADMIN")
+        //.requestMatchers("/deleteEmployee/**").hasRole("ADMIN")
         .anyRequest().authenticated()
         .and()
         .formLogin();

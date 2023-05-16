@@ -30,7 +30,7 @@ public class EmployeeController {
 		return "home";
 	}
 
-	@PreAuthorize("hasRole(ADMIN)")
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/createEmployee")
 	public String createEmployee(Model model) {
 		Employee employee = new Employee();
@@ -45,7 +45,7 @@ public class EmployeeController {
 		return "formUpdateEmployee";
 	}
 	
-	@PreAuthorize("hasRole(ADMIN)")
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/deleteEmployee/{id}")
 	public ModelAndView home(@PathVariable final long id) {
 		
