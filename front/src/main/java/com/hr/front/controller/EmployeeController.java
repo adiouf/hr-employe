@@ -1,17 +1,19 @@
 package com.hr.front.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hr.front.model.Employee;
 import com.hr.front.service.EmployeeService;
+
+import jakarta.annotation.security.RolesAllowed;
 
 @Controller
 public class EmployeeController {
@@ -27,7 +29,8 @@ public class EmployeeController {
 		model.addAttribute("employees", employees);
 		return "home";
 	}
-	
+
+	@PreAuthorize("hasRole(ADMIN)")
 	@GetMapping("/createEmployee")
 	public String createEmployee(Model model) {
 		Employee employee = new Employee();
@@ -42,6 +45,7 @@ public class EmployeeController {
 		return "formUpdateEmployee";
 	}
 	
+	@PreAuthorize("hasRole(ADMIN)")
 	@GetMapping("/deleteEmployee/{id}")
 	public ModelAndView home(@PathVariable final long id) {
 		

@@ -2,6 +2,7 @@ package com.hr.front.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
@@ -12,7 +13,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-//@EnableWebSecurity
+@EnableWebSecurity
+//@EnableMethodSecurity
 public class SpringSecurityConfig {
 	
 	@Bean
@@ -20,11 +22,12 @@ public class SpringSecurityConfig {
         UserDetails user = User.withUsername("user")
             .password(passwordEncoder().encode("user"))
             .roles("USER")
-            .username("admin")
-            .password(passwordEncoder().encode("admin"))
-            .roles("admin")
             .build();
-        return new InMemoryUserDetailsManager(user);
+            UserDetails admin = User.withUsername("admin")
+            .password(passwordEncoder().encode("admin"))
+            .roles("ADMIN", "USER")
+            .build();
+        return new InMemoryUserDetailsManager(user, admin);
     }
 	
 	@Bean
@@ -40,10 +43,11 @@ public class SpringSecurityConfig {
             )
             .httpBasic(withDefaults());
         return http.build();*/
+		// On interndit la cration et la suppression au role user
 		http
         .authorizeHttpRequests()
-        .requestMatchers("/admin").hasRole("ADMIN")
-        .requestMatchers("/user").hasRole("USER")
+        .requestMatchers("/createEmployee/**").hasRole("ADMIN")
+        .requestMatchers("/deleteEmployee/**").hasRole("ADMIN")
         .anyRequest().authenticated()
         .and()
         .formLogin();
