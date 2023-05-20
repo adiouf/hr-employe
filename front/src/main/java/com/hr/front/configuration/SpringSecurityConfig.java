@@ -50,7 +50,9 @@ public class SpringSecurityConfig {
         //.requestMatchers("/deleteEmployee/**").hasRole("ADMIN")
         .anyRequest().authenticated()
         .and()
-        .formLogin();
+        .formLogin()
+		.and()
+		.oauth2Login();
 		return http.build();
     }
 }
