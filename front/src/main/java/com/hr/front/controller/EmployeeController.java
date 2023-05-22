@@ -20,8 +20,7 @@ public class EmployeeController {
 	
 	@Autowired
 	EmployeeService employeeService;
-	
-	
+
 	@GetMapping("/")
 	public String home(Model model) {
 		
@@ -37,14 +36,14 @@ public class EmployeeController {
 		model.addAttribute("employee", employee);
 		return "formNewEmployee";
 	}
-	
+
 	@GetMapping("/updateEmployee/{id}")
 	public String updateEmployee(@PathVariable final long id, Model model) {
 		Employee employee = employeeService.getEmployee(id);
 		model.addAttribute("employee", employee);
 		return "formUpdateEmployee";
 	}
-	
+
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/deleteEmployee/{id}")
 	public ModelAndView home(@PathVariable final long id) {
@@ -52,7 +51,7 @@ public class EmployeeController {
 		employeeService.deleteEmployee(id);
 		return new ModelAndView("redirect:/");
 	}
-	
+
 	@PostMapping("/saveEmployee")
 	public ModelAndView saveEmployee(@ModelAttribute Employee employee) {
 		// Lors d'une modification on ne peut pas modifier le password
@@ -63,5 +62,4 @@ public class EmployeeController {
 		employeeService.saveEmployee(employee);
 	    return new ModelAndView("redirect:/");
 	}
-
 }
